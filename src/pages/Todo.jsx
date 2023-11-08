@@ -10,9 +10,9 @@ const Todo = () => {
 }
 
 // Jangan mengubah apapun pada function main
-const main = () => {
+const main = async () => {
     console.log("# Get All Users");
-    all()
+    await all()
 
     console.log("# Add New User: Sabiq");
     const newUser = {
@@ -20,7 +20,7 @@ const main = () => {
         age: 20,
         major: "Informatics"
     };
-    store(newUser)
+    await store(newUser)
 
     console.log("# Edit User: Isfa")
     const editedUser = {
@@ -28,10 +28,10 @@ const main = () => {
         age: 23,
         major: "English",
     }
-    update(1, editedUser)
+    await update(1, editedUser)
 
     console.log("# Delete User: Nurul");
-    destroy(2)
+    await destroy(2)
 }
 
 
@@ -70,7 +70,9 @@ const users = [
 // Gunakan for/for-of
 const all = () => {
     for (const user of users) {
-        console.log(`Name: ${user.name}, Age: ${user.age}, Major: ${user.major}`);
+        console.log(`name: ${user.name}`);
+        console.log(`age: ${user.age}`);
+        console.log(`major: ${user.major}`);
     }
 }
 
@@ -78,13 +80,19 @@ const all = () => {
 // Gunakan metode push
 const store = (user) => {
     users.push(user);
+    console.log(users);
     
 };
 
 // TODO 4 - Membuat function untuk mengupdate data users
 // Ganti data users berdasarkan index pada array
 const update = (index, user) => {
-        users[index] = user;
+        if(index >= 0 && index < users.length) {
+            users[index]["name"] = user["name"]
+            users[index]["age"] = user["age"]
+            users[index]["major"] = user["major"]
+            console.log(users[index]);
+        }
 
     
 }
@@ -92,8 +100,10 @@ const update = (index, user) => {
 // TODO 5 - Membuat function untuk menghapus data users berdasarkan index
 // Gunakan metode splice
 const destroy = (index) => {
-        users.splice(index, 1); 
-    
+    if(index >= 0 && index < users.length){
+        users.splice(index, 1) 
+        console.log(users);
+    }
 }
 
 export default Todo;
